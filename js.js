@@ -145,13 +145,17 @@ const users = [
     }
     
       
-      function deleteUser(phoneNumber) {
+     function deleteUser(phoneNumber) {
+    const confirmation = confirm("Are you sure you want to delete this contact?");
+    if (confirmation) {
         const index = users.findIndex((user) => user.phone === phoneNumber);
         if (index !== -1) {
-          users.splice(index, 1);
-          showUsers();
+            users.splice(index, 1);
+            showUsers();
         }
-      }
+    }
+}
+
           
       
           function deleteUsers() {
