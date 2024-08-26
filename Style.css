@@ -235,6 +235,7 @@ button img {
   font-family: 'Caveat', sans-serif;
   font-size: larger;
 }
+
   
   /* Media Queries */
   
@@ -272,7 +273,28 @@ button img {
   button {
       margin: 10px 0;
   }
-  }
+  } 
+  /* Dark Mode */ 
+  body.dark-mode {
+    background-color: #12121281;
+    color: #e0e0e0;
+}
+
+.dark-mode button {
+    background-color: #12121281;
+    color: #e0e0e0;
+}
+
+.dark-mode header {
+    background-color: #12121281;
+}
+
+.dark-mode .user__data {
+    background-color: #12121281;
+    border-color: #12121281;
+}
+
+/* end of dark mode */
   
   @media screen and (max-width: 480px) {
     /* Styles for screens with a maximum width of 480px */
