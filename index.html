@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Style.css">
@@ -24,53 +24,61 @@
        .popup.show {
             display: block;
         }
+        #userCount {
+            font-size: 1.2em;
+            margin: 10px;
+        }
     </style>
 </head>
 <header>
-        
     <div class="logo">
         <img src="icons/phonoBook.png" alt="Logo">
     </div>
-<nav>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about-us.html">About-us</a></li>
-    </ul>
-</nav>
-</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about-us.html">About-us</a></li>
+        </ul>
+    </nav>
 </header>
 <body>
-  <!--div for buttons --> 
-  <div class="button-container">
-    <button id="Btn" onclick="showUsers()">
-        <img src="./icons/show.png" alt="show icon" />
-    </button>
+    <!--div for buttons --> 
+    <div class="button-container">
+        <button id="Btn" onclick="showUsers()">
+            <img src="./icons/show.png" alt="show icon" />
+        </button>
 
-    <button id="addBtn" onclick="addNewUser()">
-        <img src="./icons/add.png" alt="add icon" />
-    </button>
+        <button id="addBtn" onclick="addNewUser()">
+            <img src="./icons/add.png" alt="add icon" />
+        </button>
 
-    <button id="deleteBtn" onclick="deleteUsers()">
-        
-        <img src="./icons/delete.png" alt="delete icon" />
-    </button>
-    <div id="searchContainer" style="display: none;">
-      <input type="text" id="searchInput" placeholder="Search">
-  </div>
-  <button id="searchBtn" onclick="toggleSearch()">
-      <img src="./icons/search1.png" alt="search icon">
-      <span></span>
-  </button>
-</div>
-  <!--Popup:-->
+        <button id="deleteBtn" onclick="deleteUsers()">
+            <img src="./icons/delete.png" alt="delete icon" />
+        </button>
+        <div id="searchContainer" style="display: none;">
+            <input type="text" id="searchInput" placeholder="Search">
+        </div>
+        <button id="searchBtn" onclick="toggleSearch()">
+            <img src="./icons/search1.png" alt="search icon">
+            <span></span>
+        </button>
+        <button id="darkModeButton">
+            <img src="./icons/darkmode.png" alt="Dark Mode">
+        </button>
+    </div>
+    
+    <!-- User count display -->
+    <div id="userCount">Total users: 0</div>
+    
+    <!-- Popup -->
     <div id="resultContainer"></div>
     <div class="popup" id="popup">
         <button id="closeModalBtn" onclick="closeModal()">X</button>
     </div>
+    
     <script src="js.js"></script>
     <footer>
-        <p>&copy; 2024 Phone Book Project.By Ola Khateeb & Jana Shaban</p>
+        <p>&copy; 2024 Phone Book Project. By Ola Khateeb & Jana Shaban</p>
     </footer>
 </body>
-
 </html>
