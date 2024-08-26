@@ -65,7 +65,24 @@ nav ul li a:hover {
     justify-content: center; 
     margin-top: 20px; 
 }
-
+ /* Style of the popUp */
+       .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+       .popup.show {
+            display: block;
+        }
+        #userCount {
+            font-size: 1.2em;
+            margin: 10px;
+        }
 /* Style the buttons */
 button {
     display: inline-flex;
