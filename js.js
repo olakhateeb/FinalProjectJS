@@ -9,6 +9,13 @@ const users = [
     img: 'ola1.jpg'
   },
   {
+    name: "Eyad Ghnaem",
+    email: "Eyad@gmail.com",
+    country: "Israel",
+    phone: '054-2641673',
+    img: 'Eyad1.jpg'
+  },
+  {
     name: "Rougeh Nijim",
     email: "Rougeh@gmail.com",
     country: "Israel",
