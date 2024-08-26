@@ -101,7 +101,7 @@ button {
 
 /* Hover effect for buttons */
 button:hover {
-    background-color: antiquewhite; 
+    background-color: rgb(240, 188, 1); 
 }
 
 /* Style the images inside buttons */
