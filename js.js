@@ -13,7 +13,7 @@ const users = [
     email: "Eyad@gmail.com",
     country: "Israel",
     phone: '050-2541137',
-    img: 'ola1.jpg'
+    img: 'Eyad1.jpg'
   },
   {
     name: "Rougeh Nijim",
