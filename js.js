@@ -8,7 +8,7 @@ const users = [
     phone: '050-2541373',
     img: 'ola1.jpg'
   },
-{
+  {
     name: "Eyad Ghnaem",
     email: "Eyad@gmail.com",
     country: "Israel",
@@ -267,39 +267,42 @@ function editUser(phoneNumber) {
     </div>
   `;
 }
-
-// Save edited user
+// Save editUser
 function saveEditedUser(phoneNumber) {
   const user = users.find((user) => user.phone === phoneNumber);
   const form = document.getElementById("userForm");
   const formData = new FormData(form);
 
-  // קבלת השם החדש מהטופס
   const newName = formData.get('name').trim();
+  const [newFirstName, newLastName] = newName.split(" ");
 
   // בדיקה אם השם החדש כבר קיים אצל משתמש אחר
-  const nameExists = users.some((u) => u.name.toLowerCase() === newName.toLowerCase() && u.phone !== phoneNumber);
+  const nameExists = users.some((u) => 
+      (u.name.toLowerCase() === newName.toLowerCase() || u.name.split(" ")[1].toLowerCase() === newLastName.toLowerCase()) 
+      && u.phone !== phoneNumber
+  );
+
   if (nameExists) {
-    // הצגת הודעת שגיאה ולא לעדכן את השם
-    alert("A user with this name already exists.");
-    return; // עצירת הפונקציה אם השם קיים
+      alert("A user with this name or last name already exists.");
+      return;
   }
 
-  // update information for the contact
+  // עדכון הפרטים של איש הקשר
   user.name = newName;
   user.email = formData.get('email');
   user.country = formData.get('country');
 
   const imgInput = document.getElementById("img");
   if (imgInput.files.length > 0) {
-    const file = imgInput.files[0];
-    user.img = file.name; //update img 
-     }
+      const file = imgInput.files[0];
+      user.img = file.name; // עדכון תמונה
+  }
 
-  // רענון תצוגת רשימת המשתמשים
-  showUsers();
+  showUsers(); // רענון תצוגת רשימת המשתמשים
   document.getElementById("popup").style.display = "none";
 }
+
+
 
 
 // Search users
