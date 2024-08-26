@@ -9,13 +9,6 @@ const users = [
     img: 'ola1.jpg'
   },
   {
-    name: "Eyad Ghnaem",
-    email: "Eyad@gmail.com",
-    country: "Israel",
-    phone: '054-2641673',
-    img: 'Eyad1.jpg'
-  },
-  {
     name: "Rougeh Nijim",
     email: "Rougeh@gmail.com",
     country: "Israel",
@@ -274,22 +267,33 @@ function saveEditedUser(phoneNumber) {
   const form = document.getElementById("userForm");
   const formData = new FormData(form);
 
-  // Update user details
-  user.name = formData.get('name');
+  // קבלת השם החדש מהטופס
+  const newName = formData.get('name').trim();
+
+  // בדיקה אם השם החדש כבר קיים אצל משתמש אחר
+  const nameExists = users.some((u) => u.name.toLowerCase() === newName.toLowerCase() && u.phone !== phoneNumber);
+  if (nameExists) {
+    // הצגת הודעת שגיאה ולא לעדכן את השם
+    alert("A user with this name already exists.");
+    return; // עצירת הפונקציה אם השם קיים
+  }
+
+  // update information for the contact
+  user.name = newName;
   user.email = formData.get('email');
   user.country = formData.get('country');
 
-  // Check if a new image is selected
   const imgInput = document.getElementById("img");
   if (imgInput.files.length > 0) {
     const file = imgInput.files[0];
-    user.img = file.name; // Update user image with the new file name
-  }
+    user.img = file.name; //update img 
+     }
 
-  // Refresh user list display
+  // רענון תצוגת רשימת המשתמשים
   showUsers();
   document.getElementById("popup").style.display = "none";
 }
+
 
 // Search users
 function searchUsers() {
@@ -317,7 +321,7 @@ function closeModal ( event ) {
      document.getElementById('popup').style.display = "none";
   }
 
-
+//Dark mode:
   const darkModeButton = document.getElementById('darkModeButton');
 
   darkModeButton.addEventListener('click', () => {
