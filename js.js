@@ -58,6 +58,7 @@ const users = [
     img: 'Hazem.jpg'
   }
 ];
+
 // Update the user count display
 function updateUserCount() {
     const userCountElement = document.getElementById('userCount');
@@ -337,3 +338,22 @@ function closeModal ( event ) {
   darkModeButton.addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
   });
+  
+function addHoverEffects() {
+  // Select all user elements
+  const userElements = document.querySelectorAll('.user__data');
+
+  userElements.forEach(userElement => {
+    // Add hover effect
+    userElement.addEventListener('mouseenter', () => {
+      userElement.style.backgroundColor = '#f0f0f0'; // Change background color on hover
+      userElement.style.cursor = 'pointer'; // Change cursor to pointer
+    });
+
+    // Remove hover effect
+    userElement.addEventListener('mouseleave', () => {
+      userElement.style.backgroundColor = ''; // Remove background color on leave
+      userElement.style.cursor = ''; // Remove cursor style
+    });
+  });
+}
