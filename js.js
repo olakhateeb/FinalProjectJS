@@ -1,81 +1,83 @@
-"use strict";
+'use strict';
 
 const users = [
   {
-    name: "Ola Khateeb",
-    email: "Ola@gmail.com",
-    country: "Israel",
+    name: 'Ola Khateeb',
+    email: 'Ola@gmail.com',
+    country: 'Israel',
     phone: '050-2541373',
-    img: 'ola1.jpg'
+    img: 'ola1.jpg',
   },
   {
-    name: "Eyad Ghnaem",
-    email: "Eyad@gmail.com",
-    country: "Israel",
+    name: 'Eyad Ghnaem',
+    email: 'Eyad@gmail.com',
+    country: 'Israel',
     phone: '050-2541137',
-    img: 'Eyad1.jpg'
+    img: 'Eyad1.jpg',
   },
   {
-    name: "Rougeh Nijim",
-    email: "Rougeh@gmail.com",
-    country: "Israel",
+    name: 'Rougeh Nijim',
+    email: 'Rougeh@gmail.com',
+    country: 'Israel',
     phone: '050-2841373',
-    img: 'Roje1.jpg'
+    img: 'Roje1.jpg',
   },
   {
-    name: "Danya Swaed",
-    email: "Danya@gmail.com",
-    country: "Israel",
+    name: 'Danya Swaed',
+    email: 'Danya@gmail.com',
+    country: 'Israel',
     phone: '050-4556713',
-    img: 'danya1.jpg'
+    img: 'danya1.jpg',
   },
   {
-    name: "Arwad Rahal",
-    email: "Arwad@gmail.com",
-    country: "Israel",
+    name: 'Arwad Rahal',
+    email: 'Arwad@gmail.com',
+    country: 'Israel',
     phone: '050-6279542',
-    img: 'Arwad.jpg'
+    img: 'Arwad.jpg',
   },
   {
-    name: "Ayman Zeed",
-    email: "AymanZ@gmail.com",
-    country: "Israel",
+    name: 'Ayman Zeed',
+    email: 'AymanZ@gmail.com',
+    country: 'Israel',
     phone: '050-1678346',
-    img: 'ayman1.jpg'
+    img: 'ayman1.jpg',
   },
   {
-    name: "Jana Shaaban",
-    email: "jana@gmail.com",
-    country: "Israel",
+    name: 'Jana Shaaban',
+    email: 'jana@gmail.com',
+    country: 'Israel',
     phone: '050-6180346',
-    img: 'jojo.jpg'
+    img: 'jojo.jpg',
   },
   {
-    name: "Hazem Habarat",
-    email: "Hazem@gmail.com",
-    country: "Israel",
+    name: 'Hazem Habarat',
+    email: 'Hazem@gmail.com',
+    country: 'Israel',
     phone: '054-6876987',
-    img: 'Hazem.jpg'
-  }
+    img: 'Hazem.jpg',
+  },
 ];
-
 // Update the user count display
 function updateUserCount() {
-    const userCountElement = document.getElementById('userCount');
-    userCountElement.textContent = `Total users: ${users.length}`;
-  }
-  updateUserCount();
-
-
-
+  const userCountElement = document.getElementById('userCount');
+  userCountElement.textContent = `Total users: ${users.length}`;
+}
+updateUserCount();
+function validatePhoneNumber(phone) {
+  const phonePattern = /^\d{3}-\d{7}$/;
+  return phonePattern.test(phone);
+}
 // Show users function
 function showUsers(usersToShow = users) {
-  let sortedUsers = usersToShow.slice().sort((a, b) => a.name.localeCompare(b.name, 'he'));
+  let sortedUsers = usersToShow
+    .slice()
+    .sort((a, b) => a.name.localeCompare(b.name, 'he'));
 
-  console.log(sortedUsers); // Check the sorted list
+  console.log(sortedUsers); // בדיקת הרשימה הממוינת
 
-  let result = "";
-  sortedUsers.forEach((elem) => {
+  let result = '';
+  sortedUsers.forEach(elem => {
     result += `
       <div class="user__data">
         <div class="user_img">
@@ -83,9 +85,6 @@ function showUsers(usersToShow = users) {
         </div>
         <div class="user_info">
           <div class="user__name">${elem.name}</div>
-          <div class="user__email">${elem.email}</div>
-          <div class="user__country">${elem.country}</div>
-          <div class="user__phone">${elem.phone}</div>
         </div>
         <div>
           <button onclick="showInfo('${elem.phone}')"><img src="./icons/info.png"/></button>
@@ -96,24 +95,29 @@ function showUsers(usersToShow = users) {
   });
 
   document.getElementById('resultContainer').innerHTML = result;
+  addHoverEffects();
 }
 
 // Show popup modal
 function showPopup() {
-  document.getElementById('popup').style.display = "flex";
+  document.getElementById('popup').style.display = 'flex';
 }
 
 // Toggle search container
 function toggleSearch() {
   const searchContainer = document.getElementById('searchContainer');
-  searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
+  searchContainer.style.display =
+    searchContainer.style.display === 'none' ||
+    searchContainer.style.display === ''
+      ? 'block'
+      : 'none';
 }
 
 // Add new user with validation
 function addNewUser() {
-    showPopup();
-  
-    document.getElementById("popup").innerHTML = `
+  showPopup();
+
+  document.getElementById('popup').innerHTML = `
       <h2>Add new user</h2>
       <form id="userForm">
         <label for="name">Name:</label>
@@ -131,99 +135,111 @@ function addNewUser() {
       </form>
       <div id="error-message" style="color: red;"></div>
     `;
-  
-    const form = document.getElementById("userForm");
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      
-      const formData = new FormData(form);
-      const name = formData.get("name").trim();
-      const phone = formData.get("phone").trim();
-      
-      // Validate required fields
-      if (!name || !phone) {
-        document.getElementById("error-message").textContent = "Name and phone are required fields.";
-        return;
-      }
-  
-      // Check if the name already exists
-      const nameExists = users.some(user => user.name.toLowerCase() === name.toLowerCase());
-      if (nameExists) {
-        document.getElementById("error-message").textContent = "A user with this name already exists.";
-        return;
-      }
-  
-      // Create a new user object
-      const newUser = {
-        name: name,
-        email: formData.get("email"),
-        country: formData.get("country"),
-        phone: phone,
-        img: formData.get("img") ? formData.get("img").name : 'default.jpg' // Handle the case where no image is selected
-      };
-  
-      // Add new user to the list
-      users.push(newUser);
-  
-      // Refresh the user list
-      showUsers();
-  
-      // Update user count
-      updateUserCount();
-  
-      // Close the modal
-      document.getElementById("popup").style.display = "none";
-    });
-  }
 
-  
+  const form = document.getElementById('userForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const name = formData.get('name').trim();
+    const phone = formData.get('phone').trim();
+
+    // Validate required fields
+    if (!name || !phone) {
+      document.getElementById('error-message').textContent =
+        'Name and phone are required fields.';
+      return;
+    }
+
+    // Validate phone number format
+    if (!validatePhoneNumber(phone)) {
+      document.getElementById('error-message').textContent =
+        'Phone number must be in the format XXX-XXXXXXX.';
+      return;
+    }
+
+    // Check if the name already exists
+    const nameExists = users.some(
+      user => user.name.toLowerCase() === name.toLowerCase(),
+    );
+    if (nameExists) {
+      document.getElementById('error-message').textContent =
+        'A user with this name already exists.';
+      return;
+    }
+
+    // Create a new user object
+    const newUser = {
+      name: name,
+      email: formData.get('email'),
+      country: formData.get('country'),
+      phone: phone,
+      img: formData.get('img') ? formData.get('img').name : 'default.jpg', // Handle the case where no image is selected
+    };
+
+    // Add new user to the list
+    users.push(newUser);
+
+    // Refresh the user list
+    showUsers();
+
+    // Update user count
+    updateUserCount();
+
+    // Close the modal
+    document.getElementById('popup').style.display = 'none';
+  });
+}
 
 // Delete a user
 function deleteUser(phoneNumber) {
-    // Find the user by phone number
-    const user = users.find((user) => user.phone === phoneNumber);
-    
-    if (user) {
-      // Confirm deletion with user's name
-      const confirmation = confirm(`Are you sure you want to delete ${user.name}?`);
-      if (confirmation) {
-        // Find the index of the user and remove them from the array
-        const index = users.findIndex((user) => user.phone === phoneNumber);
-        if (index !== -1) {
-          users.splice(index, 1);
-          showUsers();
-          updateUserCount(); // Update user count
-        }
+  // Find the user by phone number
+  const user = users.find(user => user.phone === phoneNumber);
+
+  if (user) {
+    // Confirm deletion with user's name
+    const confirmation = confirm(
+      `Are you sure you want to delete ${user.name}?`,
+    );
+    if (confirmation) {
+      // Find the index of the user and remove them from the array
+      const index = users.findIndex(user => user.phone === phoneNumber);
+      if (index !== -1) {
+        users.splice(index, 1);
+        showUsers();
+        updateUserCount(); // Update user count
       }
-    } else {
-      alert("User not found.");
     }
+  } else {
+    alert('User not found.');
   }
-  
-  
+}
 
 // Delete all users
 function deleteUsers() {
-    if (confirm("Are you sure you want to delete all users?")) {
-      // Clear the users array
-      users.length = 0;
-  
-      // Remove all user elements from the DOM
-      const userElements = document.querySelectorAll('#resultContainer > div');
-      userElements.forEach(element => element.remove());
-  
-      // Update user count
-      updateUserCount();
-    }
+  if (confirm('Are you sure you want to delete all users?')) {
+    // Clear the users array
+    users.length = 0;
+
+    // Clear the result container
+    const resultContainer = document.getElementById('resultContainer');
+    resultContainer.innerHTML = '';
+
+    // Add "No contacts" message
+    resultContainer.innerHTML =
+      '<div class="no-contacts"> the list is empty ,No contacts!!</div>';
+
+    // Update user count
+    updateUserCount();
   }
-  
+}
 
 // Show user info
 function showInfo(phoneNumber) {
   showPopup();
-  const user = users.find((user) => user.phone === phoneNumber);
+  const user = users.find(user => user.phone === phoneNumber);
 
-  const popup = document.getElementById("popup");
+  const popup = document.getElementById('popup');
 
   popup.innerHTML = `
     <div class="user__data">
@@ -243,10 +259,10 @@ function showInfo(phoneNumber) {
 
 // Edit user
 function editUser(phoneNumber) {
-  const user = users.find((user) => user.phone === phoneNumber);
+  const user = users.find(user => user.phone === phoneNumber);
   showPopup();
 
-  const popup = document.getElementById("popup");
+  const popup = document.getElementById('popup');
 
   popup.innerHTML = `
     <h2>Edit ${user.name}</h2>
@@ -258,7 +274,7 @@ function editUser(phoneNumber) {
       <label for="country">Country:</label>
       <input type="text" id="country" name="country" value="${user.country}"><br><br>
       <label for="phone">Phone:</label>
-      <input type="tel" id="phone" name="phone" value="${user.phone}" readonly><br><br>
+      <input type="tel" id="phone" name="phone" value="${user.phone}" ><br><br>
       <label for="img">Image:</label>
       <input type="file" id="img" name="img"><br><br>
     </form>
@@ -270,90 +286,99 @@ function editUser(phoneNumber) {
 }
 // Save editUser
 function saveEditedUser(phoneNumber) {
-  const user = users.find((user) => user.phone === phoneNumber);
-  const form = document.getElementById("userForm");
+  const user = users.find(user => user.phone === phoneNumber);
+  const form = document.getElementById('userForm');
   const formData = new FormData(form);
 
   const newName = formData.get('name').trim();
-  const [newFirstName, newLastName] = newName.split(" ");
+  const [newFirstName, newLastName] = newName.split(' ');
+
+  // Validate the new phone number
+  const newPhone = formData.get('phone').trim();
+  if (!validatePhoneNumber(newPhone)) {
+    alert('Phone number must be in the format XXX-XXXXXXX.');
+    return;
+  }
 
   // בדיקה אם השם החדש כבר קיים אצל משתמש אחר
-  const nameExists = users.some((u) => 
-      (u.name.toLowerCase() === newName.toLowerCase() || u.name.split(" ")[1].toLowerCase() === newLastName.toLowerCase()) 
-      && u.phone !== phoneNumber
+  const nameExists = users.some(
+    u =>
+      u.name.toLowerCase() === newName.toLowerCase() &&
+      u.name.split(' ')[1].toLowerCase() === newLastName.toLowerCase() &&
+      u.phone !== phoneNumber,
   );
 
   if (nameExists) {
-      alert("A user with this name or last name already exists.");
-      return;
+    alert('A user with this name or last name already exists.');
+    return;
   }
 
   // עדכון הפרטים של איש הקשר
   user.name = newName;
   user.email = formData.get('email');
   user.country = formData.get('country');
+  user.phone = formData.get('phone');
 
-  const imgInput = document.getElementById("img");
+  const imgInput = document.getElementById('img');
   if (imgInput.files.length > 0) {
-      const file = imgInput.files[0];
-      user.img = file.name; // עדכון תמונה
+    const file = imgInput.files[0];
+    user.img = file.name; // עדכון תמונה
   }
 
   showUsers(); // רענון תצוגת רשימת המשתמשים
-  document.getElementById("popup").style.display = "none";
+  document.getElementById('popup').style.display = 'none';
 }
-
-
-
 
 // Search users
 function searchUsers() {
-  const searchInput = document.getElementById('searchInput').value.toLowerCase();
+  const searchInput = document
+    .getElementById('searchInput')
+    .value.toLowerCase();
   const filteredUsers = users.filter(user => {
     return (
-      user.name.toLowerCase().startsWith(searchInput) || 
+      user.name.toLowerCase().startsWith(searchInput) ||
       user.email.toLowerCase().startsWith(searchInput) ||
       user.country.toLowerCase().startsWith(searchInput) ||
       user.phone.startsWith(searchInput)
     );
   });
   showUsers(filteredUsers);
- // Update the user count to reflect the number of filtered users
- document.getElementById('userCount').textContent = `Total users: ${filteredUsers.length}`;
+  // Update the user count to reflect the number of filtered users
+  document.getElementById(
+    'userCount',
+  ).textContent = `Total users: ${filteredUsers.length}`;
 }
 
 document.getElementById('searchInput').addEventListener('input', searchUsers);
 
 // Close modal
-function closeModal ( event ) {
-    if ( event.target === document.getElementById( 'popup' ) || event.target === document.getElementById( 'closeModalBtn' ) ) {
-      document.getElementById( 'popup' ).style.display = "none";
-    }
-     document.getElementById('popup').style.display = "none";
+function closeModal(event) {
+  if (
+    event.target === document.getElementById('popup') ||
+    event.target === document.getElementById('closeModalBtn')
+  ) {
+    document.getElementById('popup').style.display = 'none';
   }
+  document.getElementById('popup').style.display = 'none';
+}
 
 //Dark mode:
-  const darkModeButton = document.getElementById('darkModeButton');
+const darkModeButton = document.getElementById('darkModeButton');
 
-  darkModeButton.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-  });
-  
+darkModeButton.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
 function addHoverEffects() {
-  // Select all user elements
   const userElements = document.querySelectorAll('.user__data');
 
   userElements.forEach(userElement => {
-    // Add hover effect
-    userElement.addEventListener('mouseenter', () => {
-      userElement.style.backgroundColor = '#f0f0f0'; // Change background color on hover
-      userElement.style.cursor = 'pointer'; // Change cursor to pointer
+    userElement.addEventListener('mouseover', () => {
+      userElement.style.backgroundColor = 'gray';
     });
 
-    // Remove hover effect
-    userElement.addEventListener('mouseleave', () => {
-      userElement.style.backgroundColor = ''; // Remove background color on leave
-      userElement.style.cursor = ''; // Remove cursor style
+    userElement.addEventListener('mouseout', () => {
+      userElement.style.backgroundColor = 'antiquewhite';
     });
   });
 }
